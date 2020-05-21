@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block body%}
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-12">
+                <div>
+                    <img src="logo.png" alt="main_img" width="700px" height="700px">
+                    <h1>Strongbox</h1>
+                    <h3>Hold your data in a secret</h3>
+                    <a class="btn btn-outline-primary" href="{{ path('app_login') }}">Sign In</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

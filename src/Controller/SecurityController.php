@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Service\AesTest;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -40,5 +41,17 @@ class SecurityController extends AbstractController
     public function logout(): RedirectResponse
     {
         return new RedirectResponse('/login');
+    }
+
+    /**
+     * @Route("/test-aes")
+     * @param AesTest $aesTest
+     * @return Response
+     */
+    public function testCipher(AesTest $aesTest): Response
+    {
+        $encrypted = $aesTest->encrypt('Pasha yebany pidar', 'qwerty');
+        $decrypted = $aesTest->decrypt($encrypted, 'qwerty');
+        dd($encrypted, $decrypted);
     }
 }

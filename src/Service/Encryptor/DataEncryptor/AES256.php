@@ -1,8 +1,13 @@
 <?php
 
 
-namespace App\Service\DataEncryptor\Encryptor;
+namespace App\Service\Encryptor\DataEncryptor;
 
+
+use App\Service\Encryptor\Exception\DecryptorException;
+use App\Service\Encryptor\Exception\EncryptorException;
+use App\Service\Encryptor\Exception\HashException;
+use App\Service\Encryptor\Exception\HashUnequalException;
 
 class AES256 implements DataEncryptorInterface
 {
@@ -34,7 +39,7 @@ class AES256 implements DataEncryptorInterface
         );
 
         if (!$encryptedData) {
-            throw new \Exception("Internal error: openssl_encrypt() failed:"
+            throw new EncryptorException("Internal error: openssl_encrypt() failed:"
                 . openssl_error_string());
         }
 
@@ -46,7 +51,7 @@ class AES256 implements DataEncryptorInterface
         );
 
         if (!$hash) {
-            throw new \Exception("Internal error: hash_hmac() failed");
+            throw new HashException();
         }
 
         return $initializationVector . $hash . $encryptedData;
@@ -65,6 +70,7 @@ class AES256 implements DataEncryptorInterface
     public function decrypt(string $encryptedText, string $cryptoKey): string
     {
         $key = hash(self::HASHING_ALGORITHM, $cryptoKey, true);
+
         $initializationVector = $this->getInitializationVector($encryptedText);
         $hash = $this->getHash($encryptedText);
         $encryptedData = $this->getEncryptedData($encryptedText);
@@ -77,7 +83,7 @@ class AES256 implements DataEncryptorInterface
         );
 
         if (!hash_equals($generatedHash, $hash)) {
-            throw new \Exception("Internal error: Hash verification failed");
+            throw new HashUnequalException();
         }
 
         $decryptedData = openssl_decrypt(
@@ -90,7 +96,8 @@ class AES256 implements DataEncryptorInterface
 
         if (!$decryptedData)
         {
-            throw new \Exception("Internal error: openssl_decrypt() failed:".openssl_error_string());
+            throw new DecryptorException("Internal error: openssl_decrypt() failed:"
+                . openssl_error_string());
         }
 
         return $decryptedData;

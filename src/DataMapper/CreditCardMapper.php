@@ -4,7 +4,7 @@
 namespace App\DataMapper;
 
 
-class CreditCardMapper
+final class CreditCardMapper
 {
 
 }

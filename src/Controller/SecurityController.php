@@ -15,6 +15,8 @@ class SecurityController extends AbstractController
      * App login method with email and password
      *
      * @Route("/login", name="app_login")
+     * @param AuthenticationUtils $authenticationUtils
+     * @return Response
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
@@ -41,17 +43,5 @@ class SecurityController extends AbstractController
     public function logout(): RedirectResponse
     {
         return new RedirectResponse('/login');
-    }
-
-    /**
-     * @Route("/test-aes")
-     * @param AesTest $aesTest
-     * @return Response
-     */
-    public function testCipher(AesTest $aesTest): Response
-    {
-        $encrypted = $aesTest->encrypt('Pasha yebany pidar', 'qwerty');
-        $decrypted = $aesTest->decrypt($encrypted, 'qwerty');
-        dd($encrypted, $decrypted);
     }
 }

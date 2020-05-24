@@ -4,7 +4,7 @@
 namespace App\DataMapper;
 
 
-class PersonalDataMapper
+final class PersonalDataMapper
 {
 
 }

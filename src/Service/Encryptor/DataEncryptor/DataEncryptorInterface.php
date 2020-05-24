@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Service\DataEncryptor\Encryptor;
+namespace App\Service\Encryptor\DataEncryptor;
 
 
 interface DataEncryptorInterface

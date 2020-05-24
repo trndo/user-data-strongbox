@@ -45,6 +45,11 @@ class CreditCard
      */
     private ?string $passPhrase;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="creditCards")
+     */
+    private ?User $user;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -106,6 +111,18 @@ class CreditCard
     public function setPassPhrase(string $passPhrase): self
     {
         $this->passPhrase = $passPhrase;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

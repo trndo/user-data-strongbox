@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\PersonalData;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -19,32 +20,14 @@ class PersonalDataRepository extends ServiceEntityRepository
         parent::__construct($registry, PersonalData::class);
     }
 
-    // /**
-    //  * @return PersonalData[] Returns an array of PersonalData objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function findAllByUser(User $user): array
     {
         return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('p.id', 'ASC')
-            ->setMaxResults(10)
+            ->select('u')
+            ->leftJoin('p.user', 'u')
+            ->andWhere('u.id = :userId')
+            ->setParameter('userId', $user->getId())
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
     }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?PersonalData
-    {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

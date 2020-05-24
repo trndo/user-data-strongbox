@@ -30,6 +30,11 @@ class PersonalData
      */
     private ?string $taxIdentificationNumber;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="personalData")
+     */
+    private ?User $user;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -55,6 +60,18 @@ class PersonalData
     public function setTaxIdentificationNumber(string $taxIdentificationNumber): self
     {
         $this->taxIdentificationNumber = $taxIdentificationNumber;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

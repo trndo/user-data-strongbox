@@ -15,6 +15,6 @@ class PersonalDataController
      */
     public function index(): Response
     {
-        return $this->render('credit_card/index.html.twig');
+        return $this->render('personal_data/index.html.twig');
     }
 }

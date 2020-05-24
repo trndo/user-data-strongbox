@@ -25,8 +25,8 @@ final class CreditCardMapper
         return $entity->setCardVerificationCode($creditCardModel->cardVerificationCode)
             ->setExpirationDate($creditCardModel->expirationDate)
             ->setPassPhrase($creditCardModel->passPhrase)
-            ->setCardVerificationCode($creditCardModel->cardVerificationCode)
-            ->setPassword($creditCardModel->password);
+            ->setPassword($creditCardModel->password)
+            ->setPaymentNumber($creditCardModel->paymentNumber);
     }
 
 }

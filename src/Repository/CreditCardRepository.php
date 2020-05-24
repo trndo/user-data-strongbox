@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\CreditCard;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -19,32 +20,14 @@ class CreditCardRepository extends ServiceEntityRepository
         parent::__construct($registry, CreditCard::class);
     }
 
-    // /**
-    //  * @return CreditCard[] Returns an array of CreditCard objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function findAllByUser(User $user): array
     {
         return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('c.id', 'ASC')
-            ->setMaxResults(10)
+            ->select('u')
+            ->leftJoin('c.user', 'u')
+            ->andWhere('u.id = :userId')
+            ->setParameter('userId', $user->getId())
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
     }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?CreditCard
-    {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

@@ -22,6 +22,6 @@ class CreditCardProvider implements CreditCardProviderInterface
 
     public function getCreditCards(User $user): ?array
     {
-        // TODO: Implement getCreditCards() method.
+        return $this->creditCardRepository->findAllByUser($user);
     }
 }

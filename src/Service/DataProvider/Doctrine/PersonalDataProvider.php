@@ -22,6 +22,6 @@ class PersonalDataProvider implements PersonalDataProviderInterface
 
     public function getPersonalData(User $user): ?array
     {
-        // TODO: Implement getPersonalData() method.
+        return $this->personalDataRepository->findAllByUser($user);
     }
 }

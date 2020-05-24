@@ -3,9 +3,9 @@
 
 namespace App\Service\DataPersister\Doctrine;
 
-
 use App\DataMapper\PersonalDataMapper;
 use App\Entity\PersonalData;
+use App\Entity\User;
 use App\Model\PersonalDataModel;
 use App\Service\DataPersister\PersonalDataPersisterInterface;
 use App\Service\Encryptor\DataEncryptor\AES256;
@@ -29,7 +29,7 @@ class PersonalDataPersister implements PersonalDataPersisterInterface
         );
     }
 
-    public function save(PersonalDataModel $personalDataModel): void
+    public function save(PersonalDataModel $personalDataModel, User $user): void
     {
         $personalData = new PersonalData();
         $encryptedModel = $this->encryptData($personalDataModel);
@@ -39,8 +39,11 @@ class PersonalDataPersister implements PersonalDataPersisterInterface
         $this->entityManager->flush();
     }
 
-    public function update(PersonalDataModel $personalDataModel, PersonalData $personalData): void
-    {
+    public function update(
+        PersonalDataModel $personalDataModel,
+        PersonalData $personalData,
+        User $user
+    ): void {
         $encryptedModel = $this->encryptData($personalDataModel);
         PersonalDataMapper::fromModelToEntity($encryptedModel, $personalData);
 

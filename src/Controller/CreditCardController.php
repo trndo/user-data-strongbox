@@ -8,18 +8,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class ProfileController extends AbstractController
+class CreditCardController extends AbstractController
 {
     /**
-     * Index user profile
-     *
-     * @Route("/profile", name="profile_index")
+     * @Route("/profile/credit-card", name="credit_card_index")
      * @return Response
      */
     public function index(): Response
     {
-        $user = $this->getUser();
-
-        return $this->render('profile/index.html.twig');
+        return $this->render('credit_card/index.html.twig');
     }
 }

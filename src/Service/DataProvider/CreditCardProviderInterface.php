@@ -3,10 +3,13 @@
 
 namespace App\Service\DataProvider;
 
-
-use App\Entity\User;
+use App\Entity\CreditCard;
+use App\Model\CreditCardModel;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 interface CreditCardProviderInterface
 {
-    public function getCreditCards(User $user): ?array;
+    public function getCreditCards(UserInterface $user): ?array;
+
+    public function getCreditCardModel(CreditCard $creditCard): CreditCardModel;
 }

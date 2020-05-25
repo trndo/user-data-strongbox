@@ -60,10 +60,12 @@ class CreditCardPersister implements CreditCardPersisterInterface
     {
         $encryptorHandler = new DataEncryptorHandler(new AES256());
         $encryptor = $encryptorHandler->getEncryptor();
+
+        $userKey = $creditCardModel->userKey;
         $data = CreditCardMapper::fromModelToArray($creditCardModel);
 
         foreach ($data as $key => $value) {
-            $data[$key] = $encryptor->encrypt($value, 'testKeyForUser');
+            $creditCardModel->$key = $encryptor->encrypt($value, $userKey);
         }
 
         return new CreditCardModel();

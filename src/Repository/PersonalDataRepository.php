@@ -6,6 +6,7 @@ use App\Entity\PersonalData;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @method PersonalData|null find($id, $lockMode = null, $lockVersion = null)
@@ -20,10 +21,10 @@ class PersonalDataRepository extends ServiceEntityRepository
         parent::__construct($registry, PersonalData::class);
     }
 
-    public function findAllByUser(User $user): array
+    public function findAllByUser(UserInterface $user): array
     {
         return $this->createQueryBuilder('p')
-            ->select('u')
+            ->addSelect( 'u')
             ->leftJoin('p.user', 'u')
             ->andWhere('u.id = :userId')
             ->setParameter('userId', $user->getId())

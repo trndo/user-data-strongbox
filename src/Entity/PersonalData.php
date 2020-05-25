@@ -21,14 +21,14 @@ class PersonalData
     private ?int $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="blob")
      */
-    private ?string $passportCode;
+    private $passportCode;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="blob")
      */
-    private ?string $taxIdentificationNumber;
+    private $taxIdentificationNumber;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="personalData")
@@ -40,7 +40,7 @@ class PersonalData
         return $this->id;
     }
 
-    public function getPassportCode(): ?string
+    public function getPassportCode()
     {
         return $this->passportCode;
     }
@@ -52,12 +52,12 @@ class PersonalData
         return $this;
     }
 
-    public function getTaxIdentificationNumber(): ?string
+    public function getTaxIdentificationNumber()
     {
         return $this->taxIdentificationNumber;
     }
 
-    public function setTaxIdentificationNumber(string $taxIdentificationNumber): self
+    public function setTaxIdentificationNumber($taxIdentificationNumber): self
     {
         $this->taxIdentificationNumber = $taxIdentificationNumber;
 

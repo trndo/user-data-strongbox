@@ -11,6 +11,7 @@ use App\Service\DataPersister\PersonalDataPersisterInterface;
 use App\Service\Encryptor\DataEncryptor\AES256;
 use App\Service\Encryptor\DataEncryptorHandler;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 class PersonalDataPersister implements PersonalDataPersisterInterface
 {
@@ -29,11 +30,13 @@ class PersonalDataPersister implements PersonalDataPersisterInterface
         );
     }
 
-    public function save(PersonalDataModel $personalDataModel, User $user): void
+    public function save(PersonalDataModel $personalDataModel, UserInterface $user): void
     {
         $personalData = new PersonalData();
         $encryptedModel = $this->encryptData($personalDataModel);
         $personalData = PersonalDataMapper::fromModelToEntity($encryptedModel, $personalData);
+        //dd($personalData);
+        $personalData->setUser($user);
 
         $this->entityManager->persist($personalData);
         $this->entityManager->flush();
@@ -42,10 +45,11 @@ class PersonalDataPersister implements PersonalDataPersisterInterface
     public function update(
         PersonalDataModel $personalDataModel,
         PersonalData $personalData,
-        User $user
+        UserInterface $user
     ): void {
         $encryptedModel = $this->encryptData($personalDataModel);
-        PersonalDataMapper::fromModelToEntity($encryptedModel, $personalData);
+        $personalData = PersonalDataMapper::fromModelToEntity($encryptedModel, $personalData);
+        $personalData->setUser($user);
 
         $this->entityManager->flush();
     }
@@ -60,12 +64,13 @@ class PersonalDataPersister implements PersonalDataPersisterInterface
     {
         $encryptorHandler = new DataEncryptorHandler(new AES256());
         $encryptor = $encryptorHandler->getEncryptor();
-        $data = PersonalDataMapper::fromModelToArray($personalDataModel);
+        $userKey = $personalDataModel->userKey;
+        $data = (array) $personalDataModel;
 
         foreach ($data as $key => $value) {
-            $data[$key] = $encryptor->encrypt($value, 'testKeyForUser');
+            $personalDataModel->$key = $encryptor->encrypt($value, $userKey);
         }
 
-        return new PersonalDataModel();
+        return $personalDataModel;
     }
 }

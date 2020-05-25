@@ -3,9 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\CreditCard;
-use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @method CreditCard|null find($id, $lockMode = null, $lockVersion = null)
@@ -20,10 +20,10 @@ class CreditCardRepository extends ServiceEntityRepository
         parent::__construct($registry, CreditCard::class);
     }
 
-    public function findAllByUser(User $user): array
+    public function findAllByUser(UserInterface $user)
     {
         return $this->createQueryBuilder('c')
-            ->select('u')
+            ->addSelect('u')
             ->leftJoin('c.user', 'u')
             ->andWhere('u.id = :userId')
             ->setParameter('userId', $user->getId())

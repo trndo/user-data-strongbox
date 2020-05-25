@@ -41,12 +41,12 @@ class User implements UserInterface
     /**
      * @ORM\OneToMany(targetEntity=PersonalData::class, mappedBy="user")
      */
-    private ArrayCollection $personalData;
+    private $personalData;
 
     /**
      * @ORM\OneToMany(targetEntity=CreditCard::class, mappedBy="user")
      */
-    private ArrayCollection $creditCards;
+    private $creditCards;
 
     public function __construct()
     {

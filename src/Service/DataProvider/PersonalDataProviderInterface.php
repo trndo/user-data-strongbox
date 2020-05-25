@@ -4,9 +4,14 @@
 namespace App\Service\DataProvider;
 
 
-use App\Entity\User;
+use App\Entity\PersonalData;
+use App\Model\PersonalDataModel;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 interface PersonalDataProviderInterface
 {
-    public function getPersonalData(User $user): ?array;
+    public function getPersonalData(UserInterface $user): ?array;
+
+    public function getPersonalDataModel(PersonalData $personalData, string $userKey): PersonalDataModel;
+
 }

@@ -6,13 +6,15 @@ namespace App\Model;
 
 class CreditCardModel
 {
-    public ?string $paymentNumber;
+    public ?string $paymentNumber = null;
 
-    public ?string $cardVerificationCode;
+    public ?string $cardVerificationCode = null;
 
-    public ?string $password;
+    public ?string $password = null;
 
-    public ?string $expirationDate;
+    public ?string $expirationDate = null;
 
-    public ?string $passPhrase;
+    public ?string $passPhrase = null;
+
+    public ?string $userKey = null;
 }

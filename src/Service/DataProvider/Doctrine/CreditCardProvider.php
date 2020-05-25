@@ -3,10 +3,11 @@
 
 namespace App\Service\DataProvider\Doctrine;
 
-
-use App\Entity\User;
+use App\Entity\CreditCard;
+use App\Model\CreditCardModel;
 use App\Repository\CreditCardRepository;
 use App\Service\DataProvider\CreditCardProviderInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 class CreditCardProvider implements CreditCardProviderInterface
 {
@@ -20,8 +21,13 @@ class CreditCardProvider implements CreditCardProviderInterface
         $this->creditCardRepository = $creditCardRepository;
     }
 
-    public function getCreditCards(User $user): ?array
+    public function getCreditCards(UserInterface $user): ?array
     {
         return $this->creditCardRepository->findAllByUser($user);
+    }
+
+    public function getCreditCardModel(CreditCard $creditCard): CreditCardModel
+    {
+        // TODO: Implement getCreditCardModel() method.
     }
 }

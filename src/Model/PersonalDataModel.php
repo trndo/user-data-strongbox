@@ -6,7 +6,9 @@ namespace App\Model;
 
 class PersonalDataModel
 {
-    public ?string $passportCode;
+    public ?string $passportCode = null;
 
-    public ?string $taxIdentificationNumber;
+    public ?string $taxIdentificationNumber = null;
+
+    public ?string $userKey = null;
 }

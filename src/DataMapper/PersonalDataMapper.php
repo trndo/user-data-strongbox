@@ -9,21 +9,23 @@ use App\Model\PersonalDataModel;
 
 final class PersonalDataMapper
 {
-    public static function fromModelToArray(PersonalDataModel $personalDataModel): array
+    public static function fromEntityToModel(PersonalData $personalData): PersonalDataModel
     {
-        return (array) $personalDataModel;
+        $model = new PersonalDataModel();
+        $model->taxIdentificationNumber = stream_get_contents($personalData->getTaxIdentificationNumber());
+        $model->passportCode = stream_get_contents($personalData->getPassportCode());
+
+        return $model;
     }
 
-    public static function fromArrayToModel(array $data): PersonalDataModel
-    {
-       return $model = new PersonalDataModel();
-    }
 
     public static function fromModelToEntity(
         PersonalDataModel $personalDataModel,
         PersonalData $entity
     ): PersonalData {
         return $entity->setPassportCode($personalDataModel->passportCode)
-                    ->setTaxIdentificationNumber($personalDataModel->taxIdentificationNumber);
+            ->setTaxIdentificationNumber($personalDataModel->taxIdentificationNumber);
     }
+
+
 }

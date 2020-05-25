@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <div class="row text-center justify-content-around mt-5">
+            <div class="col-3">
+                <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" src="personal-data.jpg" alt="Card image cap">
+                    <div class="card-body">
+                        <br>
+                        <h5 class="card-title">Personal data</h5>
+                        <p class="card-text">Store your unique personal data inside.</p>
+                        <a href="{{ path('personal_data_index') }}" class="btn btn-primary">Go to list</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" src="credit-cards.jpg" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">Credit Cards</h5>
+                        <p class="card-text">Store your credit cards' data inside.</p>
+                        <a href="{{ path('credit_card_index') }}" class="btn btn-primary">Go to list</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\PersonalDataRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\Timestampable;
+use phpDocumentor\Reflection\Types\Resource_;
 
 /**
  * @ORM\Entity(repositoryClass=PersonalDataRepository::class)
@@ -18,43 +19,74 @@ class PersonalData
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="blob")
      */
-    private ?string $passportCode;
+    private $passportCode;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="blob")
      */
-    private ?string $taxIdentificationNumber;
+    private $taxIdentificationNumber;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="personalData")
+     */
+    private ?User $user;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getPassportCode(): ?string
+    /**
+     * @return resource
+     */
+    public function getPassportCode()
     {
         return $this->passportCode;
     }
 
-    public function setPassportCode(string $passportCode): self
+    /**
+     * @param resource $passportCode
+     * @return $this
+     */
+    public function setPassportCode($passportCode): self
     {
         $this->passportCode = $passportCode;
 
         return $this;
     }
 
-    public function getTaxIdentificationNumber(): ?string
+    /**
+     * @return resource
+     */
+    public function getTaxIdentificationNumber()
     {
         return $this->taxIdentificationNumber;
     }
 
-    public function setTaxIdentificationNumber(string $taxIdentificationNumber): self
+    /**
+     * @param resource $taxIdentificationNumber
+     * @return $this
+     */
+    public function setTaxIdentificationNumber($taxIdentificationNumber): self
     {
         $this->taxIdentificationNumber = $taxIdentificationNumber;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

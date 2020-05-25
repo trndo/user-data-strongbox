@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-12">
+            <a href="{{ path('personal_data_create') }}" class="btn btn-primary">Create</a>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Personal data</th>
+                    <th scope="col">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for item in personalData %}
+                <tr>
+                    <th scope="row">{{ loop.index }}</th>
+                    <td>Encrypted data - {{ loop.index }}</td>
+                    <td>
+                        <a href="{{ path('personal_data_edit', { personalData: item.id}) }}">Edit</a>
+                        <a href="{{ path('personal_data_delete', { personalData: item.id}) }}">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -18,6 +18,6 @@ class ProfileController extends AbstractController
      */
     public function index(): Response
     {
-        return new Response('My profile');
+        return $this->render('profile/index.html.twig');
     }
 }

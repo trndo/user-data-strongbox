@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\CreditCardRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\Timestampable;
+use phpDocumentor\Reflection\Types\Resource_;
 
 /**
  * @ORM\Entity(repositoryClass=CreditCardRepository::class)
@@ -21,91 +22,143 @@ class CreditCard
     private ?int $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="blob")
      */
-    private ?string $paymentNumber;
+    private $paymentNumber;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="blob")
      */
-    private ?string $cardVerificationCode;
+    private $cardVerificationCode;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="blob")
      */
-    private ?string $password;
+    private $password;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="blob")
      */
-    private ?string $expirationDate;
+    private $expirationDate;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="blob")
      */
-    private ?string $passPhrase;
+    private $passPhrase;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="creditCards")
+     */
+    private ?User $user;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getPaymentNumber(): ?int
+    /**
+     * @return resource
+     */
+    public function getPaymentNumber()
     {
         return $this->paymentNumber;
     }
 
-    public function setPaymentNumber(string $paymentNumber): self
+    /**
+     * @param resource $paymentNumber
+     * @return $this
+     */
+    public function setPaymentNumber($paymentNumber)
     {
         $this->paymentNumber = $paymentNumber;
 
         return $this;
     }
 
-    public function getCardVerificationCode(): ?string
+    /**
+     * @return resource
+     */
+    public function getCardVerificationCode()
     {
         return $this->cardVerificationCode;
     }
 
-    public function setCardVerificationCode(string $cardVerificationCode): self
+    /**
+     * @param resource $cardVerificationCode
+     * @return $this
+     */
+    public function setCardVerificationCode($cardVerificationCode): self
     {
         $this->cardVerificationCode = $cardVerificationCode;
 
         return $this;
     }
 
-    public function getPassword(): ?string
+    /**
+     * @return resource
+     */
+    public function getPassword()
     {
         return $this->password;
     }
 
-    public function setPassword(string $password): self
+    /**
+     * @param resource $password
+     * @return $this
+     */
+    public function setPassword($password): self
     {
         $this->password = $password;
 
         return $this;
     }
 
-    public function getExpirationDate(): ?string
+    /**
+     * @return resource
+     */
+    public function getExpirationDate()
     {
         return $this->expirationDate;
     }
 
-    public function setExpirationDate(string $expirationDate): self
+    /**
+     * @param resource $expirationDate
+     * @return $this
+     */
+    public function setExpirationDate($expirationDate): self
     {
         $this->expirationDate = $expirationDate;
 
         return $this;
     }
 
-    public function getPassPhrase(): ?string
+    /**
+     * @return resource
+     */
+    public function getPassPhrase()
     {
         return $this->passPhrase;
     }
 
-    public function setPassPhrase(string $passPhrase): self
+    /**
+     * @param resource $passPhrase
+     * @return $this
+     */
+    public function setPassPhrase($passPhrase): self
     {
         $this->passPhrase = $passPhrase;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

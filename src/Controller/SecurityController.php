@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Service\AesTest;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,6 +15,8 @@ class SecurityController extends AbstractController
      * App login method with email and password
      *
      * @Route("/login", name="app_login")
+     * @param AuthenticationUtils $authenticationUtils
+     * @return Response
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {

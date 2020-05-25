@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\PersonalDataRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\Timestampable;
+use phpDocumentor\Reflection\Types\Resource_;
 
 /**
  * @ORM\Entity(repositoryClass=PersonalDataRepository::class)
@@ -23,12 +24,12 @@ class PersonalData
     /**
      * @ORM\Column(type="blob")
      */
-    private $passportCode;
+    private Resource_ $passportCode;
 
     /**
      * @ORM\Column(type="blob")
      */
-    private $taxIdentificationNumber;
+    private Resource_ $taxIdentificationNumber;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="personalData")
@@ -45,19 +46,19 @@ class PersonalData
         return $this->passportCode;
     }
 
-    public function setPassportCode(string $passportCode): self
+    public function setPassportCode(Resource_ $passportCode): self
     {
         $this->passportCode = $passportCode;
 
         return $this;
     }
 
-    public function getTaxIdentificationNumber()
+    public function getTaxIdentificationNumber(): Resource_
     {
         return $this->taxIdentificationNumber;
     }
 
-    public function setTaxIdentificationNumber($taxIdentificationNumber): self
+    public function setTaxIdentificationNumber(Resource_ $taxIdentificationNumber): self
     {
         $this->taxIdentificationNumber = $taxIdentificationNumber;
 

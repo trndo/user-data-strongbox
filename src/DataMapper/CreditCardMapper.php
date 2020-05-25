@@ -8,14 +8,16 @@ use App\Model\CreditCardModel;
 
 final class CreditCardMapper
 {
-    public static function fromModelToArray(CreditCardModel $creditCardModel): array
+    public static function fromEntityToModel(CreditCard $creditCard): CreditCardModel
     {
-        return (array) $creditCardModel;
-    }
+        $model = new CreditCardModel();
+        $model->paymentNumber = stream_get_contents($creditCard->getPaymentNumber());
+        $model->password = stream_get_contents($creditCard->getPassword());
+        $model->cardVerificationCode = stream_get_contents($creditCard->getCardVerificationCode());
+        $model->passPhrase = stream_get_contents($creditCard->getPassPhrase());
+        $model->expirationDate = stream_get_contents($creditCard->getExpirationDate());
 
-    public static function fromArrayToModel(array $data): CreditCardModel
-    {
-        return $model = new CreditCardModel();
+        return $model;
     }
 
     public static function fromModelToEntity(

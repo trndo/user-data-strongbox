@@ -5,12 +5,12 @@ namespace App\Service\DataPersister\Doctrine;
 
 use App\DataMapper\CreditCardMapper;
 use App\Entity\CreditCard;
-use App\Entity\User;
 use App\Model\CreditCardModel;
 use App\Service\DataPersister\CreditCardPersisterInterface;
 use App\Service\Encryptor\DataEncryptor\AES256;
 use App\Service\Encryptor\DataEncryptorHandler;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 class CreditCardPersister implements CreditCardPersisterInterface
 {
@@ -29,11 +29,12 @@ class CreditCardPersister implements CreditCardPersisterInterface
         );
     }
 
-    public function save(CreditCardModel $creditCardModel, User $user): void
+    public function save(CreditCardModel $creditCardModel, UserInterface $user): void
     {
         $creditCard = new CreditCard();
         $encryptedModel = $this->encryptData($creditCardModel);
         $creditCard = CreditCardMapper::fromModelToEntity($encryptedModel, $creditCard);
+        $creditCard->setUser($user);
 
         $this->entityManager->persist($creditCard);
         $this->entityManager->flush();
@@ -42,10 +43,11 @@ class CreditCardPersister implements CreditCardPersisterInterface
     public function update(
         CreditCardModel $creditCardModel,
         CreditCard $creditCard,
-        User $user
+        UserInterface $user
     ): void {
         $encryptedModel = $this->encryptData($creditCardModel);
-        CreditCardMapper::fromModelToEntity($encryptedModel, $creditCard);
+        $creditCard = CreditCardMapper::fromModelToEntity($encryptedModel, $creditCard);
+        $creditCard->setUser($user);
 
         $this->entityManager->flush();
     }
@@ -62,7 +64,7 @@ class CreditCardPersister implements CreditCardPersisterInterface
         $encryptor = $encryptorHandler->getEncryptor();
 
         $userKey = $creditCardModel->userKey;
-        $data = CreditCardMapper::fromModelToArray($creditCardModel);
+        $data = (array) $creditCardModel;
 
         foreach ($data as $key => $value) {
             $creditCardModel->$key = $encryptor->encrypt($value, $userKey);

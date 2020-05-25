@@ -18,7 +18,8 @@
                     <th scope="row">{{ loop.index }}</th>
                     <td>Encrypted data - {{ loop.index }}</td>
                     <td>
-                        <a class="data-edit" href="{{ path('personal_data_edit', { personalData: item.id}) }}">Edit</a>
+                        <a href="{{ path('personal_data_edit', { personalData: item.id}) }}">Edit</a>
+                        <a href="{{ path('personal_data_delete', { personalData: item.id}) }}">Delete</a>
                     </td>
                 </tr>
                 {% endfor %}

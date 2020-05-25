@@ -11,5 +11,5 @@ interface CreditCardProviderInterface
 {
     public function getCreditCards(UserInterface $user): ?array;
 
-    public function getCreditCardModel(CreditCard $creditCard): CreditCardModel;
+    public function getCreditCardModel(CreditCard $creditCard, string $userKey): CreditCardModel;
 }

@@ -18,7 +18,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class PersonalDataController extends AbstractController
 {
     /**
-     * @Route("/personal-data", name="personal_data_index")
+     * @Route("/profile/personal-data", name="personal_data_index")
      * @param PersonalDataProviderInterface $personalDataProvider
      * @return Response
      */
@@ -57,7 +57,7 @@ class PersonalDataController extends AbstractController
     }
 
     /**
-     * @Route("/personal-data/edit/{personalData}", name="personal_data_edit")
+     * @Route("/profile/personal-data/edit/{personalData}", name="personal_data_edit")
      * @param Request $request
      * @param PersonalData $personalData
      * @param PersonalDataPersisterInterface $personalDataPersister

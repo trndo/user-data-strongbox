@@ -64,55 +64,87 @@ class CreditCard
         return $this->paymentNumber;
     }
 
-    public function setPaymentNumber(Resource_ $paymentNumber): self
+    /**
+     * @param resource $paymentNumber
+     * @return $this
+     */
+    public function setPaymentNumber($paymentNumber)
     {
         $this->paymentNumber = $paymentNumber;
 
         return $this;
     }
 
-    public function getCardVerificationCode(): ?Resource_
+    /**
+     * @return resource
+     */
+    public function getCardVerificationCode()
     {
         return $this->cardVerificationCode;
     }
 
-    public function setCardVerificationCode(Resource_ $cardVerificationCode): self
+    /**
+     * @param resource $cardVerificationCode
+     * @return $this
+     */
+    public function setCardVerificationCode($cardVerificationCode): self
     {
         $this->cardVerificationCode = $cardVerificationCode;
 
         return $this;
     }
 
-    public function getPassword(): ?Resource_
+    /**
+     * @return resource
+     */
+    public function getPassword()
     {
         return $this->password;
     }
 
-    public function setPassword(Resource_ $password): self
+    /**
+     * @param resource $password
+     * @return $this
+     */
+    public function setPassword($password): self
     {
         $this->password = $password;
 
         return $this;
     }
 
-    public function getExpirationDate(): ?Resource_
+    /**
+     * @return resource
+     */
+    public function getExpirationDate()
     {
         return $this->expirationDate;
     }
 
-    public function setExpirationDate(Resource_ $expirationDate): self
+    /**
+     * @param resource $expirationDate
+     * @return $this
+     */
+    public function setExpirationDate($expirationDate): self
     {
         $this->expirationDate = $expirationDate;
 
         return $this;
     }
 
-    public function getPassPhrase(): ?Resource_
+    /**
+     * @return resource
+     */
+    public function getPassPhrase()
     {
         return $this->passPhrase;
     }
 
-    public function setPassPhrase(Resource_ $passPhrase): self
+    /**
+     * @param resource $passPhrase
+     * @return $this
+     */
+    public function setPassPhrase($passPhrase): self
     {
         $this->passPhrase = $passPhrase;
 

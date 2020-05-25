@@ -24,12 +24,12 @@ class PersonalData
     /**
      * @ORM\Column(type="blob")
      */
-    private Resource_ $passportCode;
+    private $passportCode;
 
     /**
      * @ORM\Column(type="blob")
      */
-    private Resource_ $taxIdentificationNumber;
+    private $taxIdentificationNumber;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="personalData")
@@ -41,24 +41,38 @@ class PersonalData
         return $this->id;
     }
 
+    /**
+     * @return resource
+     */
     public function getPassportCode()
     {
         return $this->passportCode;
     }
 
-    public function setPassportCode(Resource_ $passportCode): self
+    /**
+     * @param resource $passportCode
+     * @return $this
+     */
+    public function setPassportCode($passportCode): self
     {
         $this->passportCode = $passportCode;
 
         return $this;
     }
 
-    public function getTaxIdentificationNumber(): Resource_
+    /**
+     * @return resource
+     */
+    public function getTaxIdentificationNumber()
     {
         return $this->taxIdentificationNumber;
     }
 
-    public function setTaxIdentificationNumber(Resource_ $taxIdentificationNumber): self
+    /**
+     * @param resource $taxIdentificationNumber
+     * @return $this
+     */
+    public function setTaxIdentificationNumber($taxIdentificationNumber): self
     {
         $this->taxIdentificationNumber = $taxIdentificationNumber;
 

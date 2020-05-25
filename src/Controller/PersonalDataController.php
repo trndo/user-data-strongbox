@@ -18,7 +18,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class PersonalDataController extends AbstractController
 {
     /**
-     * @Route("/profile/personal-data", name="personal_data_index")
+     * @Route("/personal-data", name="personal_data_index")
      * @param PersonalDataProviderInterface $personalDataProvider
      * @return Response
      */
@@ -57,7 +57,7 @@ class PersonalDataController extends AbstractController
     }
 
     /**
-     * @Route("/profile/personal-data/edit/{personalData}", name="personal_data_edit")
+     * @Route("/personal-data/edit/{personalData}", name="personal_data_edit")
      * @param Request $request
      * @param PersonalData $personalData
      * @param PersonalDataPersisterInterface $personalDataPersister
@@ -70,13 +70,20 @@ class PersonalDataController extends AbstractController
         PersonalDataPersisterInterface $personalDataPersister,
         PersonalDataProviderInterface $personalDataProvider
     ): Response {
-        $userKey = $request->getSession()->get('userKey');
+        $session = $request->getSession();
+        $keys = $session->get('userKey');
 
-        if (!$userKey) {
+        if (!$keys) {
+           $session->set('redirectUrl',
+               $this->generateUrl('personal_data_edit', [
+                    'personalData' => $personalData->getId()
+               ])
+           );
+
            return $this->redirectToRoute('key_set');
         }
 
-        $model = $personalDataProvider->getPersonalDataModel($personalData, $userKey);
+        $model = $personalDataProvider->getPersonalDataModel($personalData, $keys['userKey']);
         $form = $this->createForm(PersonalDataType::class, $model);
         $form->handleRequest($request);
 

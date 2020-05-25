@@ -30,10 +30,12 @@ class KeyController extends AbstractController
             $session->set('userKey', $key);
 
             return $this->redirect(
-                $request->headers->get('referer')
+                $session->get('redirectUrl')
             );
         }
 
-        return $this->render('key/form.html.twig');
+        return $this->render('key/form.html.twig', [
+            'form' => $form->createView()
+        ]);
     }
 }

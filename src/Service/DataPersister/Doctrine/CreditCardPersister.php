@@ -33,6 +33,7 @@ class CreditCardPersister implements CreditCardPersisterInterface
     {
         $creditCard = new CreditCard();
         $encryptedModel = $this->encryptData($creditCardModel);
+
         $creditCard = CreditCardMapper::fromModelToEntity($encryptedModel, $creditCard);
         $creditCard->setUser($user);
 
@@ -70,6 +71,6 @@ class CreditCardPersister implements CreditCardPersisterInterface
             $creditCardModel->$key = $encryptor->encrypt($value, $userKey);
         }
 
-        return new CreditCardModel();
+        return $creditCardModel;
     }
 }

@@ -70,13 +70,20 @@ class CreditCardController extends AbstractController
         CreditCardPersisterInterface $creditCardPersister,
         CreditCardProviderInterface $creditCardProvider
     ): Response {
-        $userKey = $request->getSession()->get('userKey');
+        $session = $request->getSession();
+        $key = $session->get('userKey');
 
-        if (!$userKey) {
+        if (!$key) {
+            $session->set('redirectUrl',
+                $this->generateUrl('credit_card_edit', [
+                    'creditCard' => $creditCard->getId()
+                ])
+            );
+
             return $this->redirectToRoute('key_set');
         }
 
-        $model = $creditCardProvider->getCreditCardModel($creditCard, $userKey);
+        $model = $creditCardProvider->getCreditCardModel($creditCard, $key['userKey']);
         $form = $this->createForm(CreditCardType::class, $model);
         $form->handleRequest($request);
 
@@ -92,7 +99,7 @@ class CreditCardController extends AbstractController
     }
 
     /**
-     * @Route("/profile/credit-card/delete/{CreditCard}", name="credit_card_delete")
+     * @Route("/profile/credit-card/delete/{creditCard}", name="credit_card_delete")
      * @param CreditCard $creditCard
      * @param CreditCardPersisterInterface $creditCardPersister
      * @return RedirectResponse

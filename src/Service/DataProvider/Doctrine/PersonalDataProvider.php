@@ -6,7 +6,6 @@ namespace App\Service\DataProvider\Doctrine;
 
 use App\DataMapper\PersonalDataMapper;
 use App\Entity\PersonalData;
-use App\Entity\User;
 use App\Model\PersonalDataModel;
 use App\Repository\PersonalDataRepository;
 use App\Service\DataProvider\PersonalDataProviderInterface;
@@ -30,9 +29,6 @@ class PersonalDataProvider implements PersonalDataProviderInterface
     {
         return $this->personalDataRepository->findAllByUser($user);
 
-//        $string = stream_get_contents($data[0]->getPassportCode());
-//        $aes = new AES256();
-//        dd($aes->decrypt($string, 123456));
     }
 
     public function getPersonalDataModel(PersonalData $personalData, string $userKey): PersonalDataModel

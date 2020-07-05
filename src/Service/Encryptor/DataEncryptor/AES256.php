@@ -28,7 +28,7 @@ class AES256 implements DataEncryptorInterface
     public function encrypt(string $plainText, string $cryptoKey): string
     {
         $key = hash(self::HASHING_ALGORITHM, $cryptoKey, true);
-        $initializationVector = openssl_random_pseudo_bytes(16);
+        $initializationVector = openssl_random_pseudo_bytes(self::INITIALIZATION_VECTOR_LENGTH);
 
         $encryptedData = openssl_encrypt(
             $plainText,
